@@ -1,4 +1,5 @@
-import React from 'react';
+import {useNavigation} from '@react-navigation/native';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -10,8 +11,30 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
+import {connect} from 'react-redux';
+import * as authActionTypes from '../../redux/actions/authActionTypes';
 import style from './style.js';
-const CreateAccountScreen = ({navigation}) => {
+
+const CreateAccountScreen = props => {
+  const navigation = useNavigation();
+  const [firstName, setfirstName] = useState('');
+  const [secondName, setsecondName] = useState('');
+  const [email, setemail] = useState('');
+  const [password, setpassword] = useState('');
+  const errorMsg = props.state.errorMsg;
+
+  const handleSubmit = () => {
+    const user = {
+      firstName: firstName,
+      secondName: secondName,
+      email: email,
+      password: password,
+    };
+    // console.log(props.state.authReducer.signUpError);
+
+    props.signUpUserFirebase(user);
+  };
+
   return (
     <SafeAreaView style={style.container}>
       <StatusBar />
@@ -32,25 +55,32 @@ const CreateAccountScreen = ({navigation}) => {
               placeholder={'First Name'}
               placeholderTextColor={'grey'}
               style={style.textInputStyle}
+              onChangeText={txt => setfirstName(txt)}
             />
             <TextInput
               placeholder={'Last Name'}
               placeholderTextColor={'grey'}
               style={style.textInputStyle}
+              onChangeText={txt => setsecondName(txt)}
             />
             <TextInput
               placeholder={'E-mail Address'}
               placeholderTextColor={'grey'}
               style={style.textInputStyle}
+              onChangeText={txt => setemail(txt)}
             />
             <TextInput
               placeholder={'Password'}
               placeholderTextColor={'grey'}
               style={style.textInputStyle}
+              onChangeText={txt => setpassword(txt)}
+              secureTextEntry={true}
             />
           </View>
           <View style={style.buttonsContainer}>
-            <TouchableOpacity style={style.signUpBtn}>
+            <TouchableOpacity
+              style={style.signUpBtn}
+              onPress={() => handleSubmit()}>
               <Text style={style.signUpText}>Sign Up</Text>
             </TouchableOpacity>
             <Text style={style.orText}>OR</Text>
@@ -65,4 +95,14 @@ const CreateAccountScreen = ({navigation}) => {
     </SafeAreaView>
   );
 };
-export default CreateAccountScreen;
+
+const mapStateToProps = state => ({
+  state: state,
+});
+
+const dispatchToProps = dispatch => ({
+  signUpUserFirebase: user =>
+    dispatch(authActionTypes.signUpUserFirebase(user)),
+});
+
+export default connect(mapStateToProps, dispatchToProps)(CreateAccountScreen);
