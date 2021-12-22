@@ -19,15 +19,13 @@ const style = StyleSheet.create({
     marginTop: 20,
     fontWeight: '700',
   },
-  profileImageStyle: {
-    width: 150,
-    height: 150,
-    alignSelf: 'center',
-    marginVertical: 30,
-    borderRadius: 100,
-    borderColor: '#3563A8',
-    borderWidth: 0.7,
+  upperContainer: {
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 180,
   },
+
   textInputContainer: {
     justifyContent: 'center',
     alignItems: 'center',

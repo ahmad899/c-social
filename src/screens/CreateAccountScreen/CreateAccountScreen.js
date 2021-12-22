@@ -10,10 +10,13 @@ import {
   Pressable,
   TextInput,
   TouchableOpacity,
+  TouchableHighlight,
+  ImageBackground,
 } from 'react-native';
-import {connect} from 'react-redux';
+import {connect, useDispatch} from 'react-redux';
 import * as authActionTypes from '../../redux/actions/authActionTypes';
 import style from './style.js';
+import ImageCropPicker from '../../components/ImageCropPicker/ImageCropPicker';
 
 const CreateAccountScreen = props => {
   const navigation = useNavigation();
@@ -30,8 +33,6 @@ const CreateAccountScreen = props => {
       email: email,
       password: password,
     };
-    // console.log(props.state.authReducer.signUpError);
-
     props.signUpUserFirebase(user);
   };
 
@@ -43,13 +44,9 @@ const CreateAccountScreen = props => {
         scrollEnabled={true}>
         <Text style={style.headerText}>Create new account</Text>
         <View style={style.innerContainer}>
-          <Pressable>
-            <Image
-              style={style.profileImageStyle}
-              source={require('../../../assets/profileImage.png')}
-              tintColor={'#3563A8'}
-            />
-          </Pressable>
+          <View style={style.upperContainer}>
+            <ImageCropPicker />
+          </View>
           <View style={style.textInputContainer}>
             <TextInput
               placeholder={'First Name'}

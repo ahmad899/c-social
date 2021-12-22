@@ -8,7 +8,7 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 
 export const SIGNUP_USER_FIREBASE = 'SIGNUP_USER_FIREBASE';
-
+export const PICK_IMAGE_FROM_DEVICE = 'PICK_IMAGE_FROM_DEVICE';
 ///////////action creators /////////////
 const requestSignUp = () => ({type: SIGNUP_REQUEST});
 const reciveSignUp = user => ({type: SIGNUP_SUCCESS, payload: user});
@@ -18,8 +18,13 @@ const requestLogin = () => ({type: LOGIN_REQUEST});
 const reciveLogin = user => ({type: LOGIN_SUCCESS, payload: user});
 const loginError = err => ({type: LOGIN_FAILURE, payload: err});
 
+export const pickImageFromDevice = imgUri => ({
+  type: PICK_IMAGE_FROM_DEVICE,
+  payload: imgUri,
+});
+
 export const signUpUserFirebase = user => dispatch => {
-  dispatch(requestSignUp);
+  dispatch(requestSignUp());
   /* firebase auth create user*/
   auth
     .createUserWithEmailAndPassword(user.email, user.password)

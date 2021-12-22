@@ -9,15 +9,17 @@ const initialState = {
   signUpError: false,
   errorMsg: '',
   user: {},
+  imgUri:
+    'https://icons-for-free.com/iconfiles/png/512/add+user+profile+snapchat+icon-1320191296395558816.png',
 };
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SIGNUP_REQUEST:
       return {
         ...state,
+        isSigningIn: true,
         user: action.payload,
       };
-
     case actionTypes.SIGNUP_SUCCESS:
       return {
         ...state,
@@ -30,6 +32,11 @@ const authReducer = (state = initialState, action) => {
         isSigningIn: false,
         signUpError: true,
         errorMsg: action.payload,
+      };
+    case actionTypes.PICK_IMAGE_FROM_DEVICE:
+      return {
+        ...state,
+        imgUri: action.payload,
       };
     default:
       return state;
