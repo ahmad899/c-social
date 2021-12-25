@@ -5,6 +5,7 @@ export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
 
 const initialState = {
+  userSigned: null,
   isSigningIn: false,
   signUpError: false,
   errorMsg: '',
@@ -14,6 +15,8 @@ const initialState = {
 };
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.USER_SIGNED_OR_NO:
+      return {...state, userSigned: action.payload};
     case actionTypes.SIGNUP_REQUEST:
       return {
         ...state,
@@ -38,6 +41,7 @@ const authReducer = (state = initialState, action) => {
         ...state,
         imgUri: action.payload,
       };
+
     default:
       return state;
   }
