@@ -6,8 +6,14 @@ export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
 
 const initialState = {
   userSigned: null,
-  isSigningIn: false,
+  isSigningUp: false,
   signUpError: false,
+
+  isSigningIn: false,
+  signInError: false,
+
+  isPhoneConfirmed: false,
+
   errorMsg: '',
   user: {},
   imgUri:
@@ -20,22 +26,48 @@ const authReducer = (state = initialState, action) => {
     case actionTypes.SIGNUP_REQUEST:
       return {
         ...state,
-        isSigningIn: true,
+        isSigningUp: true,
         user: action.payload,
       };
     case actionTypes.SIGNUP_SUCCESS:
       return {
         ...state,
-        isSigningIn: false,
+        isSigningUp: false,
         signUpError: false,
       };
     case actionTypes.SIGNUP_FAILURE:
       return {
         ...state,
-        isSigningIn: false,
+        isSigningUp: false,
         signUpError: true,
         errorMsg: action.payload,
       };
+    case actionTypes.CHK_CONFIRM_NUM:
+      return {
+        ...state,
+        isPhoneConfirmed: true,
+      };
+
+    case actionTypes.LOGIN_REQUEST:
+      return {
+        ...state,
+        isSigningIn: true,
+        user: action.payload,
+      };
+    case actionTypes.LOGIN_SUCCESS:
+      return {
+        ...state,
+        isSigningIn: false,
+        signInError: false,
+      };
+    case actionTypes.LOGIN_FAILURE:
+      return {
+        ...state,
+        isSigningIn: false,
+        signInError: true,
+        errorMsg: action.payload,
+      };
+
     case actionTypes.PICK_IMAGE_FROM_DEVICE:
       return {
         ...state,

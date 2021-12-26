@@ -12,6 +12,12 @@ const style = StyleSheet.create({
     justifyContent: 'center',
     marginHorizontal: 20,
   },
+  upperContainer: {
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 180,
+  },
   headerText: {
     fontSize: 30,
     color: '#3563A8',
@@ -35,7 +41,7 @@ const style = StyleSheet.create({
   textInputStyle: {
     width: '100%',
     height: 40,
-    borderWidth: 0.4,
+    borderWidth: 1,
     borderColor: 'grey',
     color: 'black',
     borderRadius: 100,
@@ -46,12 +52,19 @@ const style = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     width: '100%',
     paddingHorizontal: 5,
   },
+  callingCode: {
+    marginLeft: 5,
+    color: 'black',
+  },
   numberTextInput: {
     width: '90%',
+    height: '100%',
+    display: 'flex',
+    paddingVertical: 10,
   },
   flagContainer: {
     borderRightWidth: 0.5,

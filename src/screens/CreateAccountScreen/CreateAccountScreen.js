@@ -36,13 +36,12 @@ const CreateAccountScreen = props => {
       imageUri: imageUri,
     };
     props.signUpUserFirebase(user);
-    navigation.replace('HomeNavigator');
   };
 
   const imageUriFromChild = imageUri => {
     setimageUri(imageUri);
   };
-  if (props.state.authReducer.isSigningIn) return <LoadingScreen />;
+  if (props.state.authReducer.isSigningUp) return <LoadingScreen />;
   else
     return (
       <SafeAreaView style={style.container}>

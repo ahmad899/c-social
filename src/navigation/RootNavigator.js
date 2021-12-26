@@ -5,9 +5,7 @@ import AuthNavigator from './AuthNavigator.js';
 import HomeNavigator from './HomeNavigator';
 import {useDispatch, useSelector} from 'react-redux';
 import * as actionTypes from '../redux/actions/authActionTypes';
-import LoadingScreen from '../screens/LoadingScreen/LoadingScreen.js';
-import {useEffect} from 'react';
-import {useState} from 'react';
+
 const RootNavigator = () => {
   const Stack = createNativeStackNavigator();
   const userSigned = useSelector(state => state.authReducer.userSigned);

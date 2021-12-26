@@ -4,6 +4,8 @@ import SignInScreen from '../screens/SignInScreen/SignInScreen';
 import WelcomeSreen from '../screens/welcome-screen/WelcomeScreen';
 import CreateAccountScreen from '../screens/CreateAccountScreen/CreateAccountScreen';
 import CreateAccountByNumber from '../screens/CreateAccountByNumber/CreateAccountByNumber';
+import ConfirmNumberScreen from '../screens/CreateAccountByNumber/ConfirmNumberScreen';
+
 import HomeNavigator from './HomeNavigator';
 const Stack = createNativeStackNavigator();
 const AuthNavigator = props => {
@@ -15,6 +17,11 @@ const AuthNavigator = props => {
       <Stack.Screen name="SignIn" component={SignInScreen} />
       <Stack.Screen name="SignUp" component={CreateAccountScreen} />
       <Stack.Screen name="SignUpWithNumber" component={CreateAccountByNumber} />
+      <Stack.Screen
+        name="ConfirmNumberScreen"
+        component={ConfirmNumberScreen}
+      />
+
       <Stack.Screen name="HomeNavigator" component={HomeNavigator} />
     </Stack.Navigator>
   );
