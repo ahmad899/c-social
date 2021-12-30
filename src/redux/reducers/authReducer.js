@@ -13,7 +13,7 @@ const initialState = {
   signInError: false,
 
   isPhoneConfirmed: false,
-
+  confirm: null,
   errorMsg: '',
   user: {},
   imgUri:
@@ -72,6 +72,11 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         imgUri: action.payload,
+      };
+    case actionTypes.SET_CONFIRM:
+      return {
+        ...state,
+        confirm: action.payload,
       };
 
     default:

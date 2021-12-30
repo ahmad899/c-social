@@ -1,6 +1,9 @@
 import {Alert} from 'react-native';
-import {auth, firestore, storage} from '../../firebaseConfig/firebaseConfig';
-import firebase from 'firebase/compat';
+import storage from '@react-native-firebase/storage';
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
+import firebase from '@react-native-firebase/app';
+import check from '@react-native-firebase/app-check';
 export const USER_SIGNED_OR_NO = 'USER_SIGNED_OR_NO';
 
 export const SIGNUP_REQUEST = 'SIGNUP_REQUEST';
@@ -12,6 +15,7 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 
 export const CHK_CONFIRM_NUM = 'CHK_CONFITM_NUM';
+export const SET_CONFIRM = 'SET_CONFIRM';
 
 export const SIGNUP_USER_FIREBASE = 'SIGNUP_USER_FIREBASE';
 export const PICK_IMAGE_FROM_DEVICE = 'PICK_IMAGE_FROM_DEVICE';
@@ -27,12 +31,14 @@ const requestLogin = () => ({type: LOGIN_REQUEST});
 const reciveLogin = user => ({type: LOGIN_SUCCESS, payload: user});
 const loginError = err => ({type: LOGIN_FAILURE, payload: err});
 
-const chkCofirmNumber = () => {
-  type: CHK_CONFIRM_NUM;
-};
+const setConfirm = confirm => ({type: SET_CONFIRM, payload: confirm});
+
+const chkCofirmNumber = () => ({
+  type: CHK_CONFIRM_NUM,
+});
 //check if user signed or no
 export const firebaseAuthStateChange = () => dispatch => {
-  auth.onAuthStateChanged(user => {
+  auth().onAuthStateChanged(user => {
     user ? dispatch(userSignedOrNo(true)) : dispatch(userSignedOrNo(false));
   });
 };
@@ -46,7 +52,7 @@ export const pickImageFromDevice = imgUri => ({
 //uplaod userProfile image to firebase storage
 const uploadSelectImageToFireBase = (imgUri, uid) => dispatch => {
   dispatch(pickImageFromDevice(imgUri));
-  const reference = storage.ref(
+  const reference = storage().ref(
     `image/userProfileImage/${uid}/userProfileImage`,
   );
   const task = reference.put(imgUri);
@@ -60,7 +66,7 @@ const uploadSelectImageToFireBase = (imgUri, uid) => dispatch => {
 //LogIn user To firebase
 export const signInFirebase = user => dispatch => {
   dispatch(requestLogin());
-  auth
+  auth()
     .signInWithEmailAndPassword(user.email, user.password)
     .then(res => {
       dispatch(reciveLogin(user));
@@ -75,7 +81,7 @@ export const signInFirebase = user => dispatch => {
 export const signUpUserFirebase = user => dispatch => {
   dispatch(requestSignUp());
   /* firebase auth create user*/
-  auth
+  auth()
     .createUserWithEmailAndPassword(user.email, user.password)
     .then(res => {
       dispatch(reciveSignUp(user));
@@ -88,23 +94,29 @@ export const signUpUserFirebase = user => dispatch => {
 };
 
 //signing up user to firebase (phone number)
-export const signUpWithPhoneNumber = phoneNumber => dispatch => {
+export const signUpWithPhoneNumber = user => dispatch => {
   dispatch(requestSignUp());
-  (async () => {
-    try {
-      const confirmation = await auth.signInWithPhoneNumber(phoneNumber, true);
-      Promise.resolve();
-      console.log(confirmationResult);
-    } catch (e) {
-      alert(e);
-    }
-  })();
+  auth().settings.appVerificationDisabledForTesting = true;
+  auth()
+    .signInWithPhoneNumber(user.phoneNumber)
+    .then(() => {
+      dispatch(setConfirm(confirmation));
+      dispatch(chkCofirmNumber());
+    })
+    .then(users =>
+      users.updateProfile({
+        displayName: user.firstName,
+        photoURL: user.imageUri,
+        phoneNumber: user.phoneNumber,
+      }),
+    )
+    .catch(er => console.log(er));
 };
 
-export const confirmCodePhoneNumber = async code => {
+export const confirmCodePhoneNumber = (confirm, code) => dispatch => {
   try {
-    await confirm.confirm(code);
+    confirm.confirm(code);
   } catch (e) {
-    Alert.alert('error', 'Error');
+    Alert.alert('error', e.message);
   }
 };

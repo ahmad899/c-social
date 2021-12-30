@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "705405050095",
+    "project_id": "c-social-3d454",
+    "storage_bucket": "c-social-3d454.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:705405050095:android:b51a48b5bb9143d5ec8f1a",
+        "android_client_info": {
+          "package_name": "com.insagram"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "705405050095-f3cnslq32q52jjs3d8v0d0ofuu1gda3h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.insagram",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "705405050095-j7j08gu0av5u4tgsjn4lcn708ja485fs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXXN_APIRh4_2DjYKqJ9DFeBlRE5FxP8o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "705405050095-j7j08gu0av5u4tgsjn4lcn708ja485fs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
