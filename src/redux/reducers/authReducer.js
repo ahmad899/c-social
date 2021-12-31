@@ -77,6 +77,12 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         confirm: action.payload,
+        isSigningUp: true,
+      };
+    case actionTypes.SIGN_OUT_SET_DEFAULT_STATE:
+      return {
+        ...state,
+        ...initialState,
       };
 
     default:

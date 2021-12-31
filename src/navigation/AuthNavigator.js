@@ -7,6 +7,8 @@ import CreateAccountByNumber from '../screens/CreateAccountByNumber/CreateAccoun
 import ConfirmNumberScreen from '../screens/CreateAccountByNumber/ConfirmNumberScreen';
 
 import HomeNavigator from './HomeNavigator';
+import SignInWithNumber from '../screens/SignInWithNumber/SignInWithNumber';
+import ResetPassScreen from '../screens/ResetPassScreen/ResetPassScreen';
 const Stack = createNativeStackNavigator();
 const AuthNavigator = props => {
   return (
@@ -21,8 +23,9 @@ const AuthNavigator = props => {
         name="ConfirmNumberScreen"
         component={ConfirmNumberScreen}
       />
-
+      <Stack.Screen name="SignInWithNumber" component={SignInWithNumber} />
       <Stack.Screen name="HomeNavigator" component={HomeNavigator} />
+      <Stack.Screen name="ResetPassScreen" component={ResetPassScreen} />
     </Stack.Navigator>
   );
 };

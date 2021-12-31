@@ -31,6 +31,7 @@ allprojects {
         }
               // ADD THIS
       maven { url 'https://maven.google.com' }
+      mavenCentral() 
 
       // ADD THIS
       maven { url "https://www.jitpack.io" }

@@ -1245,11 +1245,6 @@
   resolved "https://registry.npmjs.org/@react-native-community/eslint-plugin/-/eslint-plugin-1.1.0.tgz"
   integrity sha512-W/J0fNYVO01tioHjvYWQ9m6RgndVtbElzYozBq1ZPrHO/iCzlqoySHl4gO/fpCl9QEFjvJfjPgtPMTMlsoq5DQ==
 
-"@react-native-firebase/app-check@^14.1.0":
-  version "14.1.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/app-check/-/app-check-14.1.0.tgz#620cc10f8a3f6f928a96d0f21f979d50d21cb677"
-  integrity sha512-t6GlmdXwE+4eoyC1BPbbJFAMyXAekOuqmKF+8Z64sLrw6reXvWZjD03ET2mKsP23kO8l2SNBW1UhgbP1S761WQ==
-
 "@react-native-firebase/app@^14.1.0":
   version "14.1.0"
   resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-14.1.0.tgz#f3a26c893c86e9cb50f9735bc9ab0b1fef6462aa"
@@ -5788,6 +5783,11 @@ react-native-country-picker-modal@^2.0.0:
     node-emoji "1.10.0"
     prop-types "15.7.2"
     react-async-hook "3.6.1"
+
+react-native-fbsdk-next@^6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-fbsdk-next/-/react-native-fbsdk-next-6.2.0.tgz#912d79d327bfdcd79b3d31a210051fa6b8ce911d"
+  integrity sha512-5FYiAg7rfLxJmH9XLe33c4050qI04nJGtUclWbG0xCViZBk7wBWE7ip07zRsNl0Aa02EqFd6G7o9Fk9DmXVGTw==
 
 react-native-image-crop-picker@^0.37.2:
   version "0.37.2"

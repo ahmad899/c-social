@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">insagram</string>
+    <string name="facebook_app_id">289477583197494</string>
+    <string name="fb_login_protocol_scheme">fb289477583197494</string>
 </resources>

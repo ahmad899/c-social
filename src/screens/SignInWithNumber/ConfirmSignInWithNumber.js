@@ -16,15 +16,17 @@ import * as actionTypes from '../../redux/actions/authActionTypes';
 import {useDispatch, useSelector} from 'react-redux';
 import {useState} from 'react';
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
-const ConfirmNumberScreen = ({dispatch, navigation, user}) => {
+const ConfirmSignInWithNumber = ({dispatch, navigation}) => {
   const [code, setcode] = useState(null);
   const confirm = useSelector(state => state.authReducer.confirm);
-  const isSigningUp = useSelector(state => state.authReducer.isSigningUp);
+  const isPhoneConfirmed = useSelector(
+    state => state.authReducer.isPhoneConfirmed,
+  );
   const onConfirmCode = () => {
-    if (code) dispatch(actionTypes.confirmCodePhoneNumber(confirm, code, user));
+    if (code) dispatch(actionTypes.confirmLogInCodePhoneNumber(confirm, code));
     else Alert.alert('enter a code ');
   };
-  if (!isSigningUp) return <LoadingScreen />;
+  if (!isPhoneConfirmed) return <LoadingScreen />;
   else
     return (
       <SafeAreaView style={style.container}>
@@ -67,4 +69,4 @@ const ConfirmNumberScreen = ({dispatch, navigation, user}) => {
     );
 };
 
-export default ConfirmNumberScreen;
+export default ConfirmSignInWithNumber;

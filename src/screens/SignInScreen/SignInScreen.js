@@ -14,8 +14,10 @@ import {useDispatch, useSelector} from 'react-redux';
 import style from './style.js';
 import * as actionTypes from '../../redux/actions/authActionTypes';
 import LoadingScreen from '../LoadingScreen/LoadingScreen.js';
+import {useNavigation} from '@react-navigation/native';
 
 const SignInScreen = () => {
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const isSigningIn = useSelector(state => state.authReducer.isSigningIn);
   const [email, setEmail] = useState('');
@@ -47,7 +49,7 @@ const SignInScreen = () => {
                 secureTextEntry
                 placeholderTextColor="black"
                 onChangeText={txt => setPassword(txt)}></TextInput>
-              <Pressable>
+              <Pressable onPress={() => navigation.push('ResetPassScreen')}>
                 <Text style={style.forgotPass}>Forgot Password?</Text>
               </Pressable>
               <TouchableOpacity
@@ -56,13 +58,15 @@ const SignInScreen = () => {
                 <Text style={style.logInButtonText}>Log In</Text>
               </TouchableOpacity>
               <Text style={style.Or}>OR</Text>
-              <TouchableOpacity style={style.logFaceAppleBtn}>
+              <TouchableOpacity
+                style={style.logFaceAppleBtn}
+                onPress={() => dispatch(actionTypes.onFacbookLogIn())}>
                 <Text style={style.btnText}>Log In with facebook</Text>
               </TouchableOpacity>
               <TouchableOpacity style={[style.logFaceAppleBtn, style.appleBtn]}>
                 <Text style={style.btnText}>Sign In with apple</Text>
               </TouchableOpacity>
-              <Pressable>
+              <Pressable onPress={() => navigation.push('SignInWithNumber')}>
                 <Text style={style.logWithNum}>Log In with phone number</Text>
               </Pressable>
             </KeyboardAvoidingView>
