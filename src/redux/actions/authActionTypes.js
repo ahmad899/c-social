@@ -1,6 +1,7 @@
 import {Alert} from 'react-native';
 import storage from '@react-native-firebase/storage';
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 import {LoginManager, AccessToken} from 'react-native-fbsdk-next';
 
 export const USER_SIGNED_OR_NO = 'USER_SIGNED_OR_NO';
@@ -61,6 +62,7 @@ export const pickImageFromDevice = imgUri => ({
 //uplaod userProfile image to firebase storage
 const uploadSelectImageToFireBase = (imgUri, authUser, user) => dispatch => {
   dispatch(pickImageFromDevice(imgUri));
+
   const reference = storage().ref(
     `image/userProfileImage/${authUser.user.uid}/userProfileImage`,
   );
@@ -74,6 +76,8 @@ const uploadSelectImageToFireBase = (imgUri, authUser, user) => dispatch => {
           .getDownloadURL()
           .then(photoUrl => {
             dispatch(updateUserProfile(authUser, user, photoUrl));
+            dispatch(createUserFireStoreCollection(user, photoUrl));
+            dispatch(userSignedOrNo(true));
           });
       }
     })
@@ -81,17 +85,20 @@ const uploadSelectImageToFireBase = (imgUri, authUser, user) => dispatch => {
   return true;
 };
 
-//LogIn user To firebase
-export const signInFirebase = user => dispatch => {
-  dispatch(requestLogin());
+//signing up user to firebase (email and password)
+export const signUpUserFirebase = user => dispatch => {
+  dispatch(requestSignUp());
+  /* firebase auth create user*/
   auth()
-    .signInWithEmailAndPassword(user.email, user.password)
-    .then(res => {
-      dispatch(reciveLogin(user));
+    .createUserWithEmailAndPassword(user.email, user.password)
+    .then(authUser => {
+      dispatch(uploadSelectImageToFireBase(user.imageUri, authUser, user));
+      dispatch(reciveSignUp(user));
+      dispatch(userSignedOrNo(false));
     })
     .catch(err => {
-      alert('Error');
-      dispatch(loginError());
+      dispatch(signUpError(err));
+      alert(err);
     });
 };
 
@@ -130,23 +137,28 @@ const updateUserProfile = (authUser, userInfo, photoUrl) => dispatch => {
     photoURL: photoUrl,
   });
 };
+
+//createUser firestore collection
+const createUserFireStoreCollection = (user, photoUrl) => dispatch => {
+  firestore()
+    .collection('user')
+    .doc(user.uid)
+    .set({...user, profileImageUrl: photoUrl});
+};
 ///////////////////END SIGNUP////////////////////////////////
 
 ///////////////////START SIGNIN////////////////////////////////
-
-//signing up user to firebase (email and password)
-export const signUpUserFirebase = user => dispatch => {
-  dispatch(requestSignUp());
-  /* firebase auth create user*/
+//LogIn user To firebase
+export const signInFirebase = user => dispatch => {
+  dispatch(requestLogin());
   auth()
-    .createUserWithEmailAndPassword(user.email, user.password)
-    .then(authUser => {
-      dispatch(uploadSelectImageToFireBase(user.imageUri, authUser, user));
-      dispatch(reciveSignUp(user));
+    .signInWithEmailAndPassword(user.email, user.password)
+    .then(res => {
+      dispatch(reciveLogin(user));
     })
     .catch(err => {
-      dispatch(signUpError(err));
-      alert(err);
+      alert('Error');
+      dispatch(loginError());
     });
 };
 
