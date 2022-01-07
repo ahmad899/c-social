@@ -222,6 +222,11 @@ export const onFacbookLogIn = () => dispatch => {
             '?height=500&access_token=' +
             data.accessToken,
         });
+      })
+      .then(authUser => {
+        dispatch(
+          createUserFireStoreCollection(authUser.user, authUser.user.photoURL),
+        );
       });
   };
   logInProcess();
