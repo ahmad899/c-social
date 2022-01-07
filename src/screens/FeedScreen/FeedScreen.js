@@ -1,4 +1,4 @@
-import React, {useLayoutEffect} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -8,26 +8,24 @@ import {
   StatusBar,
   Pressable,
 } from 'react-native';
-import auth from '@react-native-firebase/auth';
-import {useDispatch} from 'react-redux';
-import {signOutFromFirebase} from '../../redux/actions/authActionTypes';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 const FeedScreen = ({navigation, route}) => {
+  const [feed, setfeed] = useState(null);
   useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
         <Pressable>
-          <EvilIcons name="camera" size={30} color="black" />
+          <EvilIcons name="camera" size={35} color="black" />
         </Pressable>
       ),
       headerRight: () => (
         <Pressable>
           <MaterialCommunityIcons
             name="playlist-edit"
-            size={30}
+            size={35}
             color="black"
           />
         </Pressable>
@@ -37,7 +35,18 @@ const FeedScreen = ({navigation, route}) => {
   return (
     <SafeAreaView>
       <StatusBar backgroundColor="white" barStyle="dark-content" />
-      <ScrollView></ScrollView>
+      {feed ? (
+        <ScrollView></ScrollView>
+      ) : (
+        <View
+          style={{
+            height: '100%',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Text style={{color: 'black'}}>no posts go to discover!!!</Text>
+        </View>
+      )}
     </SafeAreaView>
   );
 };
