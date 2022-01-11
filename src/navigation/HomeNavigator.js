@@ -1,25 +1,20 @@
 import React from 'react';
-import FeedScreen from '../screens/FeedScreen/FeedScreen';
-import DiscoverScreen from '../screens/DiscoverScreen/DiscoverScreen';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import MessageScreen from '../screens/MessageScreen/MessageScreen';
-import FriendsScreen from '../screens/FriendsScreen/FriendsScreen';
-import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
+import FeedStackScreen from './HomeStacks/FeedStackScreen';
+import DiscoverStackScreen from './HomeStacks/DiscoverStackScreen';
+import MessageStack from './HomeStacks/MessageStack';
+import FriendsStack from './HomeStacks/FriendsStack';
+import ProfileStack from './HomeStacks/ProfileStack';
 export default function HomeNavigator() {
   const Tab = createBottomTabNavigator();
 
   const screenOption = screenRef => ({
-    headerTitleAlign: 'center',
-    headerTitleStyle: {
-      fontFamily: 'San Francisco',
-      fontSize: 18,
-      fontWeight: '700',
-    },
-    headerStyle: {height: 30},
+    headerShown: false,
 
-    tabBarIcon: ({focused, color}) => {
+    tabBarIcon: ({focused, color, size}) => {
       color = focused ? color : 'grey';
+      size = focused ? 30 : size;
       let iconName;
       switch (screenRef) {
         case 'Feed':
@@ -38,36 +33,39 @@ export default function HomeNavigator() {
           iconName = 'ios-person-outline';
           break;
       }
-      return <Ionicons name={iconName} size={30} color={color} />;
+      return <Ionicons name={iconName} size={30} color={color} size={size} />;
     },
-    tabBarLabel: '',
   });
 
   return (
-    <Tab.Navigator initialRouteName="Feed">
+    <Tab.Navigator
+      initialRouteName="Feed"
+      screenOptions={{
+        tabBarHideOnKeyboard: true,
+      }}>
       <Tab.Screen
         name="Feed"
-        component={FeedScreen}
+        component={FeedStackScreen}
         options={screenOption('Feed')}
       />
       <Tab.Screen
         name="Discover"
-        component={DiscoverScreen}
+        component={DiscoverStackScreen}
         options={screenOption('Discover')}
       />
       <Tab.Screen
         name="Chat"
-        component={MessageScreen}
+        component={MessageStack}
         options={screenOption('Chat')}
       />
       <Tab.Screen
         name="Friends"
-        component={FriendsScreen}
+        component={FriendsStack}
         options={screenOption('Friends')}
       />
       <Tab.Screen
         name="Profile"
-        component={ProfileScreen}
+        component={ProfileStack}
         options={screenOption('Profile')}
       />
     </Tab.Navigator>
