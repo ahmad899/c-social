@@ -4,17 +4,17 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import ProfileScreen from '../../screens/ProfileScreen/ProfileScreen';
 import screenOption from './StackStyle';
 
-const ProfileStack = () => {
-  const FeedStack = createNativeStackNavigator();
+const ProfileStackScreen = () => {
+  const ProfileStack = createNativeStackNavigator();
   return (
-    <FeedStack.Navigator>
-      <FeedStack.Screen
+    <ProfileStack.Navigator>
+      <ProfileStack.Screen
         name="ProfileScreen"
         component={ProfileScreen}
         options={screenOption}
       />
-    </FeedStack.Navigator>
+    </ProfileStack.Navigator>
   );
 };
 
-export default ProfileStack;
+export default ProfileStackScreen;

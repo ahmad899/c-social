@@ -4,17 +4,17 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import MessageScreen from '../../screens/MessageScreen/MessageScreen';
 import screenOption from './StackStyle';
 
-const MessageStack = () => {
-  const FeedStack = createNativeStackNavigator();
+const MessageStackScreen = () => {
+  const MessageStack = createNativeStackNavigator();
   return (
-    <FeedStack.Navigator>
-      <FeedStack.Screen
+    <MessageStack.Navigator>
+      <MessageStack.Screen
         name="ChatScreen"
         component={MessageScreen}
         options={screenOption}
       />
-    </FeedStack.Navigator>
+    </MessageStack.Navigator>
   );
 };
 
-export default MessageStack;
+export default MessageStackScreen;

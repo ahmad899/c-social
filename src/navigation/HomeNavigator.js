@@ -3,12 +3,12 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FeedStackScreen from './HomeStacks/FeedStackScreen';
 import DiscoverStackScreen from './HomeStacks/DiscoverStackScreen';
-import MessageStack from './HomeStacks/MessageStack';
-import FriendsStack from './HomeStacks/FriendsStack';
-import ProfileStack from './HomeStacks/ProfileStack';
+import MessageStackScreen from './HomeStacks/MessageStackScreen';
+import FriendsStackScreen from './HomeStacks/FriendsStackScreen';
+import ProfileStackScreen from './HomeStacks/ProfileStackScreen';
+import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 export default function HomeNavigator() {
   const Tab = createBottomTabNavigator();
-
   const screenOption = screenRef => ({
     headerShown: false,
 
@@ -37,6 +37,11 @@ export default function HomeNavigator() {
     },
   });
 
+  const getTabBarVisibilty = route => {
+    const routeName = getFocusedRouteNameFromRoute(route);
+    return routeName === 'CreatePostScreen' ? 'none' : 'flex';
+  };
+
   return (
     <Tab.Navigator
       initialRouteName="Feed"
@@ -46,27 +51,30 @@ export default function HomeNavigator() {
       <Tab.Screen
         name="Feed"
         component={FeedStackScreen}
-        options={screenOption('Feed')}
+        options={({route}) => ({
+          ...screenOption('Feed'),
+          tabBarStyle: {display: getTabBarVisibilty(route)},
+        })}
       />
       <Tab.Screen
         name="Discover"
         component={DiscoverStackScreen}
-        options={screenOption('Discover')}
+        options={({route}) => screenOption('Discover')}
       />
       <Tab.Screen
         name="Chat"
-        component={MessageStack}
-        options={screenOption('Chat')}
+        component={MessageStackScreen}
+        options={({route}) => screenOption('Chat')}
       />
       <Tab.Screen
         name="Friends"
-        component={FriendsStack}
-        options={screenOption('Friends')}
+        component={FriendsStackScreen}
+        options={({route}) => screenOption('Friends')}
       />
       <Tab.Screen
         name="Profile"
-        component={ProfileStack}
-        options={screenOption('Profile')}
+        component={ProfileStackScreen}
+        options={({route}) => screenOption('Profile')}
       />
     </Tab.Navigator>
   );

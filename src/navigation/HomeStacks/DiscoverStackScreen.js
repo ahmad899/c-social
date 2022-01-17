@@ -4,15 +4,15 @@ import DiscoverScreen from '../../screens/DiscoverScreen/DiscoverScreen';
 import screenOption from './StackStyle';
 
 const DiscoverStackScreen = () => {
-  const FeedStack = createNativeStackNavigator();
+  const DiscoverStack = createNativeStackNavigator();
   return (
-    <FeedStack.Navigator>
-      <FeedStack.Screen
+    <DiscoverStack.Navigator>
+      <DiscoverStack.Screen
         name="DiscoverScreen"
         component={DiscoverScreen}
         options={screenOption}
       />
-    </FeedStack.Navigator>
+    </DiscoverStack.Navigator>
   );
 };
 

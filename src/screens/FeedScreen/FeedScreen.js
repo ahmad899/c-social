@@ -8,6 +8,7 @@ import {useNavigation} from '@react-navigation/native';
 const FeedScreen = ({route}) => {
   const [feed, setfeed] = useState(null);
   const navigation = useNavigation();
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (

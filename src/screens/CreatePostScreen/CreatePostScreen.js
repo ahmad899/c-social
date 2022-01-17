@@ -1,5 +1,4 @@
-import {useNavigation} from '@react-navigation/native';
-import React from 'react';
+import React, {createRef, useRef} from 'react';
 import {useLayoutEffect} from 'react';
 import {
   View,
@@ -8,23 +7,34 @@ import {
   StatusBar,
   ScrollView,
   TextInput,
+  Animated,
+  Dimensions,
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import style from './style';
 import {SafeAreaView} from 'react-native-safe-area-context';
-const CreatePostScreen = ({route}) => {
-  const navigation = useNavigation();
+import {Button} from 'react-native-paper';
+import BottomSheetAnimation from '../../components/BottomSheetAnimation/BottomSheetAnimation';
+
+const CreatePostScreen = ({navigation, route}) => {
+  const {width, height} = Dimensions.get('screen');
+
   useLayoutEffect(() => {
     const unsubscribe = navigation.setOptions({
       headerTitleAlign: 'center',
       title: 'Create Post',
       headerStyle: {borderBottom: 0},
+      headerRight: () => (
+        <Button mode="contained" color="#3563A8" uppercase>
+          post
+        </Button>
+      ),
     });
     return unsubscribe;
   }, [navigation, route]);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{width, height}}>
       <StatusBar backgroundColor="white" barStyle="dark-content" />
       <ScrollView>
         <View style={style.container}>
@@ -45,6 +55,7 @@ const CreatePostScreen = ({route}) => {
           </View>
         </View>
       </ScrollView>
+      <BottomSheetAnimation />
     </SafeAreaView>
   );
 };
