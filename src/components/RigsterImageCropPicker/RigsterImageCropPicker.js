@@ -8,10 +8,9 @@ import {
   Alert,
 } from 'react-native';
 import style from './style';
-
 import ImagePicker from 'react-native-image-crop-picker';
 
-const ImageCropPicker = ({imageUri, imageUriFromChild}) => {
+const RigsterImageCropPicker = ({imageUri, imageUriFromChild}) => {
   const requestStoragePermission = async () => {
     // console.log(PermissionsAndroid);
     try {
@@ -56,4 +55,4 @@ const ImageCropPicker = ({imageUri, imageUriFromChild}) => {
   );
 };
 
-export default ImageCropPicker;
+export default RigsterImageCropPicker;

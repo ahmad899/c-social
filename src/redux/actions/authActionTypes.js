@@ -191,44 +191,41 @@ export const confirmLogInCodePhoneNumber = (confirm, code) => dispatch => {
 //Login with Facebook
 export const onFacbookLogIn = () => dispatch => {
   const logInProcess = async () => {
-    try {
-      const result = await LoginManager.logInWithPermissions([
-        'public_profile',
-        'email',
-      ]);
+    const result = await LoginManager.logInWithPermissions([
+      'public_profile',
+      'email',
+    ]);
 
-      if (result.isCancelled) {
-        throw 'User cancelled the login process';
-      }
-
-      // Once signed in, get the users AccesToken
-      const data = await AccessToken.getCurrentAccessToken();
-      //console.log(data);
-      if (!data) {
-        throw 'Something went wrong obtaining access token';
-      }
-
-      // Create a Firebase credential with the AccessToken
-      const facebookCredential = auth.FacebookAuthProvider.credential(
-        data.accessToken,
-      );
-      auth()
-        .signInWithCredential(facebookCredential)
-        .then(authUser => {
-          authUser.user.updateProfile({
-            photoURL:
-              authUser.user.photoURL +
-              '?height=500&access_token=' +
-              data.accessToken,
-          });
-        })
-        .catch(err => console.log(err));
-    } catch (error) {
-      console.log(error);
+    if (result.isCancelled) {
+      throw 'User cancelled the login process';
     }
 
+    // Once signed in, get the users AccesToken
+    const data = await AccessToken.getCurrentAccessToken();
+    //console.log(data);
+    if (!data) {
+      throw 'Something went wrong obtaining access token';
+    }
+
+    // Create a Firebase credential with the AccessToken
+    const facebookCredential = await auth.FacebookAuthProvider.credential(
+      data.accessToken,
+    );
+
+    await auth()
+      .signInWithCredential(facebookCredential)
+      .then(authUser => {
+        authUser.user.updateProfile({
+          photoURL:
+            authUser.user.photoURL +
+            '?height=500&access_token=' +
+            data.accessToken,
+        });
+      })
+      .catch(err => console.log(err));
+
     // Sign-in the user with the credential
-    auth()
+    await auth()
       .signInWithCredential(facebookCredential)
       .then(authUser => {
         authUser.user.updateProfile({

@@ -15,7 +15,6 @@ import CountryPicker, {
   Flag,
   FlagButton,
 } from 'react-native-country-picker-modal';
-import ImageCropPicker from '../../components/ImageCropPicker/ImageCropPicker';
 import * as actionTypes from '../../redux/actions/authActionTypes';
 import {useDispatch, useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';

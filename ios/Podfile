@@ -12,6 +12,9 @@ target 'insagram' do
     :hermes_enabled => false
   )
 
+  pod 'react-native-location', :path => '../node_modules/react-native-location'
+
+
   target 'insagramTests' do
     inherit! :complete
     # Pods for testing

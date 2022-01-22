@@ -15,7 +15,7 @@ import CountryPicker, {
   Flag,
   FlagButton,
 } from 'react-native-country-picker-modal';
-import ImageCropPicker from '../../components/ImageCropPicker/ImageCropPicker';
+import RigsterImageCropPicker from '../../components/RigsterImageCropPicker/RigsterImageCropPicker';
 import * as actionTypes from '../../redux/actions/authActionTypes';
 import {useDispatch, useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
@@ -71,7 +71,7 @@ const CreateAccountScreen = () => {
             <Text style={style.headerText}>Create new account</Text>
             <View style={style.innerContainer}>
               <View style={style.upperContainer}>
-                <ImageCropPicker
+                <RigsterImageCropPicker
                   imageUri={imageUri}
                   imageUriFromChild={imageUriFromChild}
                 />

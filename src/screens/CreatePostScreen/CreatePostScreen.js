@@ -9,13 +9,13 @@ import {
   TextInput,
   Animated,
   Dimensions,
+  PermissionsAndroid,
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import style from './style';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Button} from 'react-native-paper';
 import BottomSheetAnimation from '../../components/BottomSheetAnimation/BottomSheetAnimation';
-
 const CreatePostScreen = ({navigation, route}) => {
   const {width, height} = Dimensions.get('screen');
 
@@ -34,7 +34,7 @@ const CreatePostScreen = ({navigation, route}) => {
   }, [navigation, route]);
 
   return (
-    <SafeAreaView style={{width, height}}>
+    <SafeAreaView style={{width, height, backgroundColor: 'white'}}>
       <StatusBar backgroundColor="white" barStyle="dark-content" />
       <ScrollView>
         <View style={style.container}>
@@ -50,6 +50,7 @@ const CreatePostScreen = ({navigation, route}) => {
           <View style={style.createPostContainer}>
             <TextInput
               placeholder={`What's in your Mind`}
+              placeholderTextColor={'black'}
               style={style.postText}
             />
           </View>

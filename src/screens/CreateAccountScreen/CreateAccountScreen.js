@@ -6,17 +6,14 @@ import {
   SafeAreaView,
   StatusBar,
   ScrollView,
-  Image,
   Pressable,
   TextInput,
   TouchableOpacity,
-  TouchableHighlight,
-  ImageBackground,
 } from 'react-native';
 import {connect, useDispatch} from 'react-redux';
 import * as authActionTypes from '../../redux/actions/authActionTypes';
 import style from './style.js';
-import ImageCropPicker from '../../components/ImageCropPicker/ImageCropPicker';
+import RigsterImageCropPicker from '../../components/RigsterImageCropPicker/RigsterImageCropPicker';
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
 const CreateAccountScreen = props => {
   const navigation = useNavigation();
@@ -52,7 +49,7 @@ const CreateAccountScreen = props => {
           <Text style={style.headerText}>Create new account</Text>
           <View style={style.innerContainer}>
             <View style={style.upperContainer}>
-              <ImageCropPicker
+              <RigsterImageCropPicker
                 imageUri={imageUri}
                 imageUriFromChild={imageUriFromChild}
               />
