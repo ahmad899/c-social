@@ -1,4 +1,3 @@
-import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {
   View,
@@ -12,10 +11,10 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import style from './style';
-import * as actionTypes from '../../redux/actions/authActionTypes';
+import * as actionTypes from '../../../redux/actions/authActionTypes';
 import {useDispatch, useSelector} from 'react-redux';
 import {useState} from 'react';
-import LoadingScreen from '../LoadingScreen/LoadingScreen';
+import LoadingScreen from '../../LoadingScreen/LoadingScreen';
 const ConfirmNumberScreen = ({dispatch, navigation, user}) => {
   const [code, setcode] = useState(null);
   const confirm = useSelector(state => state.authReducer.confirm);

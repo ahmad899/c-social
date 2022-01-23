@@ -15,17 +15,23 @@ import auth from '@react-native-firebase/auth';
 import style from './style';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Button} from 'react-native-paper';
-import BottomSheetAnimation from '../../components/BottomSheetAnimation/BottomSheetAnimation';
+import BottomSheetAnimation from '../../../../components/BottomSheetAnimation/BottomSheetAnimation';
+import {useSelector} from 'react-redux';
 const CreatePostScreen = ({navigation, route}) => {
   const {width, height} = Dimensions.get('screen');
-
+  const postType = useSelector(state => state.homeReducer.post.type);
   useLayoutEffect(() => {
     const unsubscribe = navigation.setOptions({
       headerTitleAlign: 'center',
       title: 'Create Post',
       headerStyle: {borderBottom: 0},
       headerRight: () => (
-        <Button mode="contained" color="#3563A8" uppercase>
+        <Button
+          mode="contained"
+          color="#3563A8"
+          uppercase
+          //disable button based on post type if declared or not
+          disabled={postType === null ? true : false}>
           post
         </Button>
       ),

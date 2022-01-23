@@ -1,20 +1,20 @@
+import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {
-  View,
-  Text,
-  SafeAreaView,
-  StatusBar,
-  ScrollView,
-  TouchableOpacity,
-  TextInput,
-  Pressable,
   KeyboardAvoidingView,
+  Pressable,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
+import * as actionTypes from '../../../redux/actions/authActionTypes';
+import LoadingScreen from '../../LoadingScreen/LoadingScreen.js';
 import style from './style.js';
-import * as actionTypes from '../../redux/actions/authActionTypes';
-import LoadingScreen from '../LoadingScreen/LoadingScreen.js';
-import {useNavigation} from '@react-navigation/native';
 
 const SignInScreen = () => {
   const navigation = useNavigation();

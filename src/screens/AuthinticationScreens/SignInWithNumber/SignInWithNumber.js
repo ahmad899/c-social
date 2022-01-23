@@ -15,10 +15,9 @@ import CountryPicker, {
   Flag,
   FlagButton,
 } from 'react-native-country-picker-modal';
-import * as actionTypes from '../../redux/actions/authActionTypes';
+import * as actionTypes from '../../../redux/actions/authActionTypes';
 import {useDispatch, useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
-import LoadingScreen from '../LoadingScreen/LoadingScreen.js';
 import ConfirmSignInWithNumber from './ConfirmSignInWithNumber.js';
 const SignInWithNumber = () => {
   const navigation = useNavigation();

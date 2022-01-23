@@ -15,12 +15,12 @@ import CountryPicker, {
   Flag,
   FlagButton,
 } from 'react-native-country-picker-modal';
-import RigsterImageCropPicker from '../../components/RigsterImageCropPicker/RigsterImageCropPicker';
-import * as actionTypes from '../../redux/actions/authActionTypes';
+import RigsterImageCropPicker from '../../../components/RigsterImageCropPicker/RigsterImageCropPicker';
+import * as actionTypes from '../../../redux/actions/authActionTypes';
 import {useDispatch, useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import ConfirmNumberScreen from './ConfirmNumberScreen.js';
-import LoadingScreen from '../LoadingScreen/LoadingScreen.js';
+import LoadingScreen from '../../LoadingScreen/LoadingScreen.js';
 const CreateAccountScreen = () => {
   const navigation = useNavigation();
   const imageUriFromStore = useSelector(state => state.authReducer.imgUri);

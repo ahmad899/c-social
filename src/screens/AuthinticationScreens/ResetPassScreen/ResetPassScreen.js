@@ -13,7 +13,7 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 import style from './style';
 import auth from '@react-native-firebase/auth';
-import LoadingScreen from '../LoadingScreen/LoadingScreen';
+import LoadingScreen from '../../LoadingScreen/LoadingScreen';
 const ResetPassScreen = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');

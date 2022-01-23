@@ -11,10 +11,10 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {connect, useDispatch} from 'react-redux';
-import * as authActionTypes from '../../redux/actions/authActionTypes';
+import * as authActionTypes from '../../../redux/actions/authActionTypes';
 import style from './style.js';
-import RigsterImageCropPicker from '../../components/RigsterImageCropPicker/RigsterImageCropPicker';
-import LoadingScreen from '../LoadingScreen/LoadingScreen';
+import RigsterImageCropPicker from '../../../components/RigsterImageCropPicker/RigsterImageCropPicker';
+import LoadingScreen from '../../LoadingScreen/LoadingScreen.js';
 const CreateAccountScreen = props => {
   const navigation = useNavigation();
   const [firstName, setfirstName] = useState('');

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import MessageScreen from '../../screens/MessageScreen/MessageScreen';
+import MessageScreen from '../../screens/HomeScreens/MessageScreen/MessageScreen';
 import screenOption from './StackStyle';
 
 const MessageStackScreen = () => {

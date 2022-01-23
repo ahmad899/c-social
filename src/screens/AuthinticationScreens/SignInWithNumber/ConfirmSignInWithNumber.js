@@ -12,10 +12,10 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import style from './style';
-import * as actionTypes from '../../redux/actions/authActionTypes';
+import * as actionTypes from '../../../redux/actions/authActionTypes';
 import {useDispatch, useSelector} from 'react-redux';
 import {useState} from 'react';
-import LoadingScreen from '../LoadingScreen/LoadingScreen';
+import LoadingScreen from '../../LoadingScreen/LoadingScreen.js';
 const ConfirmSignInWithNumber = ({dispatch, navigation}) => {
   const [code, setcode] = useState(null);
   const confirm = useSelector(state => state.authReducer.confirm);

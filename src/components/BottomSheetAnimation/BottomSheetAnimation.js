@@ -10,10 +10,11 @@ import {
   TouchableOpacity,
   PermissionsAndroid,
   Keyboard,
+  Button,
 } from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import ImagePicker from 'react-native-image-crop-picker';
-import Geolocation from '@react-native-community/geolocation';
+import {useNavigation} from '@react-navigation/native';
 
 const {width, height} = Dimensions.get('screen');
 
@@ -21,7 +22,7 @@ const BottomSheetAnimation = () => {
   const bottomVal = useRef(new Animated.Value(0)).current;
   const [bottomTriger, setBottomTriger] = useState(false);
   const [imgUrl, setimgUrl] = useState('');
-
+  const navigation = useNavigation();
   Keyboard.addListener('keyboardDidShow', e => {
     Animated.spring(bottomVal, {
       toValue: height / 2.3,
@@ -109,7 +110,7 @@ const BottomSheetAnimation = () => {
       console.warn(err);
     }
   };
-  const requestLocationPermission = async () => {
+  /*  const requestLocationPermission = async () => {
     try {
       const granted = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
@@ -119,14 +120,13 @@ const BottomSheetAnimation = () => {
         },
       );
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        Geolocation.getCurrentPosition(info => console.log(info));
       } else {
         console.log(' permission denied');
       }
     } catch (err) {
       console.warn(err);
     }
-  };
+  }; */
 
   return (
     <Animated.View
@@ -174,7 +174,7 @@ const BottomSheetAnimation = () => {
                 style={{marginRight: 10}}
               />
             )}
-            onPress={requestLocationPermission}
+            onPress={() => navigation.push('AddLocationScreen')}
           />
           <List.Item
             title="Camera"

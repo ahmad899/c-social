@@ -1,10 +1,10 @@
 import React, {useLayoutEffect} from 'react';
 
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import FeedScreen from '../../screens/FeedScreen/FeedScreen';
-import CreatePostScreen from '../../screens/CreatePostScreen/CreatePostScreen';
+import FeedScreen from '../../screens/HomeScreens/FeedScreen/FeedScreen';
+import CreatePostScreen from '../../screens/HomeScreens/CreatePostScreens/CreatePostScreen/CreatePostScreen';
 import screenOption from './StackStyle';
-import {useNavigationState} from '@react-navigation/native';
+import AddLocationScreen from '../../screens/HomeScreens/CreatePostScreens/AddLocationScreen/AddLocationScreen';
 
 const FeedStackScreen = ({navigation, route}) => {
   useLayoutEffect(() => {}, [navigation, route]);
@@ -17,6 +17,11 @@ const FeedStackScreen = ({navigation, route}) => {
         name="CreatePostScreen"
         component={CreatePostScreen}
         options={{animation: 'slide_from_bottom'}}
+      />
+      <FeedStack.Screen
+        name="AddLocationScreen"
+        component={AddLocationScreen}
+        options={{title: 'Add Location'}}
       />
     </FeedStack.Navigator>
   );
