@@ -21,7 +21,7 @@ const FeedStackScreen = ({navigation, route}) => {
       <FeedStack.Screen
         name="AddLocationScreen"
         component={AddLocationScreen}
-        options={{title: 'Add Location'}}
+        options={{title: 'Add Location', animation: 'slide_from_right'}}
       />
     </FeedStack.Navigator>
   );
