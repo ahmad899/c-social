@@ -39,7 +39,17 @@ export default function HomeNavigator() {
 
   const getTabBarVisibilty = route => {
     const routeName = getFocusedRouteNameFromRoute(route);
-    return routeName === 'CreatePostScreen' ? 'none' : 'flex';
+    switch (routeName) {
+      case 'CreatePostScreen':
+        return 'none';
+        break;
+      case 'AddLocationScreen':
+        return 'none';
+        break;
+      default:
+        return 'flex';
+        break;
+    }
   };
 
   return (

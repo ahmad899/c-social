@@ -11,8 +11,7 @@ const style = StyleSheet.create({
     width: 90,
     borderRadius: 100,
     resizeMode: 'cover',
-    /*   borderColor: 'blue',
-    borderWidth: 5, */
+    backgroundColor: 'white',
   },
   userNameText: {
     marginLeft: 10,

@@ -17,6 +17,8 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {Button} from 'react-native-paper';
 import BottomSheetAnimation from '../../../../components/BottomSheetAnimation/BottomSheetAnimation';
 import {useSelector} from 'react-redux';
+import {Avatar} from 'react-native-paper';
+
 const CreatePostScreen = ({navigation, route}) => {
   const {width, height} = Dimensions.get('screen');
   const postType = useSelector(state => state.homeReducer.post.type);
@@ -45,10 +47,12 @@ const CreatePostScreen = ({navigation, route}) => {
       <ScrollView>
         <View style={style.container}>
           <View style={style.imageContainer}>
-            <Image
+            <Avatar.Image
+              size={90}
               source={{uri: auth().currentUser.photoURL}}
               style={style.imageStyle}
             />
+
             <Text style={style.userNameText}>
               {auth().currentUser.displayName}
             </Text>
