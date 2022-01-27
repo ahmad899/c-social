@@ -1,12 +1,4 @@
-import {
-  View,
-  Text,
-  PermissionsAndroid,
-  Dimensions,
-  Image,
-  FlatList,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Text, PermissionsAndroid, Dimensions, Image} from 'react-native';
 import React, {useLayoutEffect, useEffect, useState} from 'react';
 import style from './style';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
@@ -15,7 +7,8 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Geolocation from 'react-native-geolocation-service';
 import {Button} from 'react-native-paper';
-import PlaceRow from './PlaceRow';
+import {useDispatch} from 'react-redux';
+import {createNewPost} from '../../../../redux/actions/homeActions/homeActionCreators';
 navigator.geolocation = require('react-native-geolocation-service');
 
 const AddLocationScreen = () => {
@@ -23,6 +16,8 @@ const AddLocationScreen = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const [islocationEnabled, setIslocationEnabled] = useState(null);
+  const dispatch = useDispatch();
+
   useLayoutEffect(() => {
     const unsubscribe = navigation.setOptions({
       headerStyle: {borderBottom: 0},
@@ -41,8 +36,13 @@ const AddLocationScreen = () => {
   useEffect(() => {
     PermissionsAndroid.check(
       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-    ).then(r => setIslocationEnabled(r));
-  }, []);
+    ).then(r => {
+      Geolocation.getCurrentPosition(
+        () => (r ? setIslocationEnabled(r) : setIslocationEnabled(r)),
+        err => setIslocationEnabled(false),
+      );
+    });
+  }, [islocationEnabled]);
 
   const onLocationHandler = async () => {
     try {
@@ -61,10 +61,11 @@ const AddLocationScreen = () => {
         Geolocation.getCurrentPosition(
           position => {
             console.log(position);
+            setIslocationEnabled(true);
           },
           error => {
             // See error code charts below.
-            console.log(error.code, error.message);
+            alert('error');
           },
           {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
         );
@@ -73,12 +74,10 @@ const AddLocationScreen = () => {
         setIslocationEnabled(false);
       }
     } catch (err) {
-      console.log(err);
+      alert('error');
     }
   };
-  const renderItem = ({item}) => (
-    <Text style={{color: 'blakc', height: 100}}>fsdfsd</Text>
-  );
+
   return (
     <View style={style.container}>
       <GooglePlacesAutocomplete
@@ -88,25 +87,30 @@ const AddLocationScreen = () => {
           language: 'en',
         }}
         textInputProps={{placeholderTextColor: 'black'}}
-        currentLocation={true}
-        currentLocationLabel="Current location"
-        suppressDefaultStyles
         styles={{
-          textInput: style.autoCompleteTextInput,
-          textInputContainer: style.autoCompleteContainer,
+          textInputContainer: {},
+          textInput: {fontSize: 18, backgroundColor: '#bee3db', margin: 10},
+          container: {flex: 0},
+          description: {color: 'black', fontSize: 18},
         }}
+        currentLocationLabel="Current location"
+        currentLocation={true}
+        enablePoweredByContainer={false}
         fetchDetails
-        renderRow={data => <PlaceRow data={data} />}
-        renderDescription={data => data.description || data.vicinity}
         onPress={(data, details = null) => {
-          console.log(data, details);
+          const postMap = {
+            lat: details.geometry.location.lat,
+            lng: details.geometry.location.lng,
+            cityName: details.vicinity,
+            type: 'locationPost',
+          };
+          dispatch(createNewPost(postMap));
+          navigation.goBack();
         }}
+        onFail={e => alert('error')}
       />
-
       {islocationEnabled ? (
-        <View>
-          <Text>yes</Text>
-        </View>
+        <></>
       ) : (
         <View style={[style.turnOnLocationContainer, {width}]}>
           <Image
@@ -122,7 +126,8 @@ const AddLocationScreen = () => {
             mode="contained"
             color="#3563A8"
             width={width * 0.24}
-            uppercase>
+            uppercase
+            onPress={onLocationHandler}>
             Turn on
           </Button>
         </View>

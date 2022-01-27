@@ -1,27 +1,34 @@
-import React, {createRef, useRef} from 'react';
+import React, {useState} from 'react';
 import {useLayoutEffect} from 'react';
 import {
   View,
   Text,
-  Image,
   StatusBar,
   ScrollView,
   TextInput,
-  Animated,
   Dimensions,
-  PermissionsAndroid,
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import style from './style';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Button} from 'react-native-paper';
 import BottomSheetAnimation from '../../../../components/BottomSheetAnimation/BottomSheetAnimation';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {Avatar} from 'react-native-paper';
-
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {
+  clearPost,
+  postToFireBase,
+} from '../../../../redux/actions/homeActions/homeActionCreators';
+import CreatePostMapeView from '../../../../components/CreatePostMapeView/CreatePostMapeView';
+import CreatePostImage from '../../../../components/CreatePostImage/CreatePostImage';
+import {useEffect} from 'react';
 const CreatePostScreen = ({navigation, route}) => {
   const {width, height} = Dimensions.get('screen');
-  const postType = useSelector(state => state.homeReducer.post.type);
+  const dispatch = useDispatch();
+  const post = useSelector(state => state.homeReducer.post);
+  const [text, setText] = useState('');
+
   useLayoutEffect(() => {
     const unsubscribe = navigation.setOptions({
       headerTitleAlign: 'center',
@@ -33,13 +40,36 @@ const CreatePostScreen = ({navigation, route}) => {
           color="#3563A8"
           uppercase
           //disable button based on post type if declared or not
-          disabled={postType === null ? true : false}>
+          disabled={
+            (post.text.length === 0 && post.type === null) ||
+            post.imageUri === null
+              ? true
+              : false
+          }
+          onPress={() => {
+            dispatch(postToFireBase(post));
+          }}>
           post
         </Button>
       ),
+      headerLeft: () => (
+        <Ionicons
+          name="arrow-back"
+          size={30}
+          color={'black'}
+          onPress={() => {
+            dispatch(clearPost);
+            navigation.goBack();
+          }}
+        />
+      ),
     });
     return unsubscribe;
-  }, [navigation, route]);
+  }, [navigation, route, post, text]);
+
+  useEffect(() => {
+    Object.assign(post, {text: text});
+  }, [text]);
 
   return (
     <SafeAreaView style={{width, height, backgroundColor: 'white'}}>
@@ -48,21 +78,43 @@ const CreatePostScreen = ({navigation, route}) => {
         <View style={style.container}>
           <View style={style.imageContainer}>
             <Avatar.Image
-              size={90}
+              size={70}
               source={{uri: auth().currentUser.photoURL}}
               style={style.imageStyle}
             />
-
             <Text style={style.userNameText}>
               {auth().currentUser.displayName}
             </Text>
+            {/* rendring city name based if there is a post or not and rendering it when user select image */}
+            {(post.type === 'locationPost' || post.type === 'imagePost') &&
+            post.cityName ? (
+              <>
+                <Text style={[style.userNameText, {flex: 1, flexWrap: 'wrap'}]}>
+                  <Text style={{fontWeight: '400'}}>- in </Text>
+                  {post?.cityName}.
+                </Text>
+              </>
+            ) : (
+              <></>
+            )}
           </View>
           <View style={style.createPostContainer}>
             <TextInput
               placeholder={`What's in your Mind`}
               placeholderTextColor={'black'}
               style={style.postText}
+              onChangeText={txt => setText(txt)}
             />
+
+            {/* rendering map to show where is the user but if he select image it will be replaced by the image */}
+            {post.type === 'locationPost' && !post.imageUri ? (
+              <CreatePostMapeView post={post} />
+            ) : /* rendring image */
+            post.type === 'imagePost' && post.imageUri ? (
+              <CreatePostImage post={post} />
+            ) : (
+              <></>
+            )}
           </View>
         </View>
       </ScrollView>

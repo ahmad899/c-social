@@ -1,20 +1,8 @@
 import {StyleSheet} from 'react-native';
 
 const style = StyleSheet.create({
-  container: {flex: 1, backgroundColor: 'white'},
-  autoCompleteContainer: {
-    width: '100%',
-    height: 50,
-    paddingHorizontal: '2%',
-  },
+  container: {backgroundColor: 'white', flex: 1},
 
-  autoCompleteTextInput: {
-    backgroundColor: '#ced4da',
-    color: 'black',
-    fontSize: 18,
-    borderRadius: 50,
-    paddingHorizontal: 20,
-  },
   ////////////////////////////////
   //turn on location///
   turnOnLocationContainer: {

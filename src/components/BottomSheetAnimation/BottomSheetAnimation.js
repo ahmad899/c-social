@@ -10,33 +10,26 @@ import {
   TouchableOpacity,
   PermissionsAndroid,
   Keyboard,
-  Button,
+  ScrollView,
 } from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
 import ImagePicker from 'react-native-image-crop-picker';
 import {useNavigation} from '@react-navigation/native';
-
+import {useDispatch} from 'react-redux';
+import {createNewPost} from '../../redux/actions/homeActions/homeActionCreators';
 const {width, height} = Dimensions.get('screen');
 
 const BottomSheetAnimation = () => {
   const bottomVal = useRef(new Animated.Value(0)).current;
   const [bottomTriger, setBottomTriger] = useState(false);
-  const [imgUrl, setimgUrl] = useState('');
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   Keyboard.addListener('keyboardDidShow', e => {
     Animated.spring(bottomVal, {
       toValue: height / 2.3,
       duration: 100,
       useNativeDriver: true,
     }).start();
-  });
-
-  Keyboard.addListener('keyboardDidHide', e => {
-    Animated.spring(bottomVal, {
-      toValue: 0,
-      duration: 100,
-      useNativeDriver: true,
-    }).start();
+    setBottomTriger(true);
   });
 
   const openCloseBottomSheet = () => {
@@ -67,7 +60,11 @@ const BottomSheetAnimation = () => {
           cropping: true,
         })
           .then(img => {
-            setimgUrl(img.path);
+            const post = {
+              type: 'imagePost',
+              imageUri: img.path,
+            };
+            dispatch(createNewPost(post));
           })
           .catch(e => {});
       } else {
@@ -100,7 +97,11 @@ const BottomSheetAnimation = () => {
           cropping: true,
         })
           .then(img => {
-            setimgUrl(img.path);
+            const post = {
+              type: 'imagePost',
+              imageUri: img.path,
+            };
+            dispatch(createNewPost(post));
           })
           .catch(e => {});
       } else {
@@ -110,23 +111,6 @@ const BottomSheetAnimation = () => {
       console.warn(err);
     }
   };
-  /*  const requestLocationPermission = async () => {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-        {
-          title: 'C-Social',
-          message: 'C-Social wants access to your location ',
-        },
-      );
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      } else {
-        console.log(' permission denied');
-      }
-    } catch (err) {
-      console.warn(err);
-    }
-  }; */
 
   return (
     <Animated.View
