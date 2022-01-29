@@ -1,14 +1,14 @@
 import React, {useLayoutEffect} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import SignInScreen from '../screens/SignInScreen/SignInScreen';
+import SignInScreen from '../screens/AuthinticationScreens/SignInScreen/SignInScreen';
 import WelcomeSreen from '../screens/welcome-screen/WelcomeScreen';
-import CreateAccountScreen from '../screens/CreateAccountScreen/CreateAccountScreen';
-import CreateAccountByNumber from '../screens/CreateAccountByNumber/CreateAccountByNumber';
-import ConfirmNumberScreen from '../screens/CreateAccountByNumber/ConfirmNumberScreen';
+import CreateAccountScreen from '../screens/AuthinticationScreens/CreateAccountScreen/CreateAccountScreen';
+import CreateAccountByNumber from '../screens/AuthinticationScreens/CreateAccountByNumber/CreateAccountByNumber';
+import ConfirmNumberScreen from '../screens/AuthinticationScreens/CreateAccountByNumber/ConfirmNumberScreen';
+import ResetPassScreen from '../screens/AuthinticationScreens/ResetPassScreen/ResetPassScreen';
+import SignInWithNumber from '../screens/AuthinticationScreens/SignInWithNumber/SignInWithNumber';
 
 import HomeNavigator from './HomeNavigator';
-import SignInWithNumber from '../screens/SignInWithNumber/SignInWithNumber';
-import ResetPassScreen from '../screens/ResetPassScreen/ResetPassScreen';
 const Stack = createNativeStackNavigator();
 const AuthNavigator = props => {
   return (
