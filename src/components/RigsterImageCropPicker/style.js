@@ -13,6 +13,8 @@ const style = StyleSheet.create({
     borderRadius: 100,
     borderColor: '#3563A8',
     borderWidth: 0.7,
+    resizeMode: 'cover',
+    backgroundColor: 'white',
   },
 });
 export default style;

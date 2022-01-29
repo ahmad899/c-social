@@ -2,9 +2,11 @@ import {
   CREATE_NEW_POST,
   CLEAR_POST,
   CLEAR_POST_IMAGE,
+  RECIVE_POSTS,
 } from '../actions/homeActions/homeActionTypes';
 const initialState = {
   post: {type: null},
+  postFromDB: [],
 };
 
 const homeReducer = (state = initialState, action) => {
@@ -12,10 +14,14 @@ const homeReducer = (state = initialState, action) => {
     case CREATE_NEW_POST:
       return {...state, post: {...state.post, ...action.payload}};
     case CLEAR_POST:
-      return {...state, post: initialState.post};
+      return {...state, post: {type: null}};
     case CLEAR_POST_IMAGE:
-      return {...state, post: {...state.post, imageUri: null}};
-
+      return {...state, post: {...state.post, imageUri: null, type: null}};
+    case RECIVE_POSTS:
+      return {
+        ...state,
+        postFromDB: action.payload,
+      };
     default:
       return state;
   }

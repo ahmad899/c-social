@@ -58,6 +58,7 @@ const style = StyleSheet.create({
     height: '100%',
     display: 'flex',
     paddingVertical: 10,
+    color: 'black',
   },
   flagContainer: {
     borderRightWidth: 0.5,

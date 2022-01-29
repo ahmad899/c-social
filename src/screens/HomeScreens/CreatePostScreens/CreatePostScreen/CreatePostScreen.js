@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useLayoutEffect} from 'react';
 import {
   View,
@@ -22,12 +22,12 @@ import {
 } from '../../../../redux/actions/homeActions/homeActionCreators';
 import CreatePostMapeView from '../../../../components/CreatePostMapeView/CreatePostMapeView';
 import CreatePostImage from '../../../../components/CreatePostImage/CreatePostImage';
-import {useEffect} from 'react';
 const CreatePostScreen = ({navigation, route}) => {
   const {width, height} = Dimensions.get('screen');
   const dispatch = useDispatch();
   const post = useSelector(state => state.homeReducer.post);
-  const [text, setText] = useState('');
+
+  const [text, setText] = useState(post.text ? post.text : '');
 
   useLayoutEffect(() => {
     const unsubscribe = navigation.setOptions({
@@ -41,13 +41,13 @@ const CreatePostScreen = ({navigation, route}) => {
           uppercase
           //disable button based on post type if declared or not
           disabled={
-            (post.text.length === 0 && post.type === null) ||
-            post.imageUri === null
-              ? true
-              : false
+            text.length != 0 || post.type != null || post.imageUri != null
+              ? false
+              : true
           }
           onPress={() => {
             dispatch(postToFireBase(post));
+            setText('');
           }}>
           post
         </Button>
@@ -58,14 +58,14 @@ const CreatePostScreen = ({navigation, route}) => {
           size={30}
           color={'black'}
           onPress={() => {
-            dispatch(clearPost);
+            dispatch(clearPost());
             navigation.goBack();
           }}
         />
       ),
     });
     return unsubscribe;
-  }, [navigation, route, post, text]);
+  }, [navigation, route, post, text, post.type]);
 
   useEffect(() => {
     Object.assign(post, {text: text});
@@ -104,6 +104,7 @@ const CreatePostScreen = ({navigation, route}) => {
               placeholderTextColor={'black'}
               style={style.postText}
               onChangeText={txt => setText(txt)}
+              value={text}
             />
 
             {/* rendering map to show where is the user but if he select image it will be replaced by the image */}

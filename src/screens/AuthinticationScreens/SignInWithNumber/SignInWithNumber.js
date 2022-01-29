@@ -47,7 +47,7 @@ const SignInWithNumber = () => {
     return (
       <SafeAreaView style={style.container}>
         <StatusBar />
-        <Text style={style.headerText}>Create new account</Text>
+        <Text style={style.headerText}>Sign in </Text>
         <ScrollView
           contentContainerStyle={style.scrollContainer}
           scrollEnabled={true}>

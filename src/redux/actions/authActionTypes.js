@@ -211,35 +211,32 @@ export const onFacbookLogIn = () => dispatch => {
     const facebookCredential = await auth.FacebookAuthProvider.credential(
       data.accessToken,
     );
-
     await auth()
       .signInWithCredential(facebookCredential)
       .then(authUser => {
-        authUser.user.updateProfile({
-          photoURL:
-            authUser.user.photoURL +
-            '?height=500&access_token=' +
-            data.accessToken,
-        });
+        const path =
+          authUser.user.photoURL +
+          '?width=500&height=500&access_token=' +
+          data.accessToken;
+        authUser.user
+          .updateProfile({
+            photoURL: path,
+          })
+          .then(() => {
+            const userInfo = {
+              email: authUser.user.email,
+              firstName: authUser.user.displayName
+                .match(/^(\S+)\s(.*)/)
+                .slice(1)[0],
+              secondName: authUser.user.displayName
+                .match(/^(\S+)\s(.*)/)
+                .slice(1)[1],
+            };
+            dispatch(createUserFireStoreCollection(userInfo, path));
+          });
       })
-      .catch(err => console.log(err));
 
-    // Sign-in the user with the credential
-    await auth()
-      .signInWithCredential(facebookCredential)
-      .then(authUser => {
-        authUser.user.updateProfile({
-          photoURL:
-            authUser.user.photoURL +
-            '?height=500&access_token=' +
-            data.accessToken,
-        });
-      })
-      .then(authUser => {
-        dispatch(
-          createUserFireStoreCollection(authUser.user, authUser.user.photoURL),
-        );
-      });
+      .catch(err => alert('error'));
   };
   logInProcess();
 };

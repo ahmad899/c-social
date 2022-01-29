@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import style from './style';
 import ImagePicker from 'react-native-image-crop-picker';
+import {Avatar} from 'react-native-paper';
 
 const RigsterImageCropPicker = ({imageUri, imageUriFromChild}) => {
   const requestStoragePermission = async () => {
@@ -31,10 +32,14 @@ const RigsterImageCropPicker = ({imageUri, imageUriFromChild}) => {
 
   const pickImage = () => {
     ImagePicker.openPicker({
-      width: 150,
-      height: 150,
       cropping: true,
       cropperCircleOverlay: true,
+      includeBase64: false,
+      compressImageQuality: 1,
+      compressImageMaxHeight: 1,
+      compressImageMaxWidth: 1,
+      compressImageMaxWidth: 1500,
+      compressImageMaxHeight: 1000,
     }).then(img => {
       imageUriFromChild(img.path);
     });
@@ -45,8 +50,9 @@ const RigsterImageCropPicker = ({imageUri, imageUriFromChild}) => {
       style={style.profileImageContainer}
       onPress={requestStoragePermission}
       underlayColor={'#3563A8'}>
-      <Image
+      <Avatar.Image
         style={style.profileImageStyle}
+        size={150}
         source={{
           uri: imageUri,
         }}

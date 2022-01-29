@@ -5,10 +5,8 @@ import FeedScreen from '../../screens/HomeScreens/FeedScreen/FeedScreen';
 import CreatePostScreen from '../../screens/HomeScreens/CreatePostScreens/CreatePostScreen/CreatePostScreen';
 import screenOption from './StackStyle';
 import AddLocationScreen from '../../screens/HomeScreens/CreatePostScreens/AddLocationScreen/AddLocationScreen';
-
 const FeedStackScreen = ({navigation, route}) => {
   useLayoutEffect(() => {}, [navigation, route]);
-
   const FeedStack = createNativeStackNavigator();
   return (
     <FeedStack.Navigator screenOptions={screenOption}>
