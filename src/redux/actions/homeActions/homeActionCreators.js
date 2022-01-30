@@ -55,5 +55,9 @@ export const recivePostFromFirestore = () => dispatch => {
   firestore()
     .collection('posts')
     .get()
-    .then(res => dispatch(recivePosts(res.docs.map(doc => doc.data()))));
+    .then(res =>
+      dispatch(
+        recivePosts(res.docs.map(doc => ({id: doc.id, data: doc.data()}))),
+      ),
+    );
 };
